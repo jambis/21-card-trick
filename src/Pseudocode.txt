@@ -1,0 +1,41 @@
+sample object 
+{
+    "success": true,
+    "deck_id": "3p40paa87x90",
+    "shuffled": true,
+    "remaining": 52
+}
+
+-Create new deck and shuffle 
+https://deckofcardsapi.com/api/deck/new/shuffle/
+
+-Draw 21 cards
+https://deckofcardsapi.com/api/deck/<<deck_id>>/draw/?count=21
+
+-Store cards drawn in an array and pass to partial deck
+https://deckofcardsapi.com/api/deck/new/shuffle/?cards=AS,2S,KS,AD,2D,KD,AC,2C,KC,AH,2H,KH
+
+-Prompt user to mentally pick 1 card from the 21
+-User Clicks "Done" button
+
+-Draw a card and deal to pile 1
+-Draw another card and deal to pile 2
+-Draw another card and deal to pile 3
+-Loop until all 21 cards have been dealt each pile will have 7 cards
+
+-Ask user to pick pile that contains his card
+
+
+
+--------------------------------------------------------------------------------
+Maybe have to create 4 piles?
+https://deckofcardsapi.com/api/deck/<<deck_id>>/pile/<<pile_name>>/add/?cards=AS,2S
+
+
+https://deckofcardsapi.com/api/deck/<<deck_id>>/pile/<<pile_name>>/add/?cards=AS,2S
+
+https://deckofcardsapi.com/api/deck/<<deck_id>>/pile/<<pile_name>>/draw/?cards=AS
+https://deckofcardsapi.com/api/deck/<<deck_id>>/pile/<<pile_name>>/draw/?count=2
+https://deckofcardsapi.com/api/deck/<<deck_id>>/draw/bottom/
+Specify the cards that you want to draw from the pile. The default is to just draw off the top of the pile (it's a stack). 
+Or add the bottom parameter to the URL to draw from the bottom.

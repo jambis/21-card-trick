@@ -1,8 +1,15 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import InitialDeck from "./Components/InitialDeck";
+import ThreePiles from "./Components/ThreePiles";
 
 function App() {
-  const [newDeck, setNewDeck] = useState(null);
+  const [newDeck, setNewDeck] = useState(null); //Initial Deck containing 52 shuffled cards
+  const [cardsArr, setCardsArr] = useState([]); //Array Containing 21 Card codes
+  const [imagesArr, setImagesArr] = useState([]); //Array Containing 21 Card images
+  const [shortDeck, setShortDeck] = useState(null); //New shuffled deck containing only 21 cards
+  const [cardPicked, setCardPicked] = useState(false); //Has user picked a card
+
   useEffect(() => {
     axios
       .get("https://deckofcardsapi.com/api/deck/new/shuffle/")
@@ -12,8 +19,6 @@ function App() {
       .catch(err => console.error(err));
   }, []);
 
-  const [cardsArr, setCardsArr] = useState([]);
-  const [imagesArr, setImagesArr] = useState([]);
   useEffect(() => {
     if (newDeck) {
       axios
@@ -23,8 +28,6 @@ function App() {
         .then(res => {
           res.data.cards.forEach(element => {
             setCardsArr(codes => [...codes, element.code]);
-          });
-          res.data.cards.forEach(element => {
             setImagesArr(images => [...images, element.image]);
           });
         })
@@ -32,7 +35,6 @@ function App() {
     }
   }, [newDeck]);
 
-  const [shortDeck, setShortDeck] = useState(null);
   useEffect(() => {
     if (cardsArr.length === 21) {
       axios
@@ -64,10 +66,10 @@ function App() {
 
   return (
     <div className="App">
-      {imagesArr.length === 21 ? (
-        imagesArr.map(image => <img src={`${image}`} />)
+      {!cardPicked ? (
+        <InitialDeck imagesArr={imagesArr} setCardPicked={setCardPicked} />
       ) : (
-        <p>Loading...</p>
+        <ThreePiles />
       )}
     </div>
   );

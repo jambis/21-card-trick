@@ -21,7 +21,6 @@ const ThreePiles = ({ deckID }) => {
   //Do that until remaining cards in the total pile is 0
   useEffect(() => {
     if (cardsRemaining > 0 && repNumber > 0) {
-      console.log("Drawing 21 cards splitting into 3 piles");
       axios
         .get(`${baseURL}/${deckID}/pile/total/draw/?count=3`)
         .then(res => {

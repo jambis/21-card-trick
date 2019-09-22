@@ -21,6 +21,7 @@ const ThreePiles = ({ deckID }) => {
   //Do that until remaining cards in the total pile is 0
   useEffect(() => {
     if (cardsRemaining > 0 && repNumber > 0) {
+      console.log("Drawing 21 cards splitting into 3 piles");
       axios
         .get(`${baseURL}/${deckID}/pile/total/draw/?count=3`)
         .then(res => {
@@ -49,66 +50,68 @@ const ThreePiles = ({ deckID }) => {
   useEffect(() => {
     const piles = Object.keys(images);
 
-    axios
-      .get(
-        `${baseURL}/${deckID}/pile/pile${
-          piles.filter(n => n !== pilePicked)[0]
-        }/draw/?count=7`
-      )
-      .then(res =>
-        axios
-          .get(
-            `${baseURL}/${deckID}/pile/total/add/?cards=${res.data.cards
-              .map(el => el.code)
-              .join(",")}`
-          )
-          .then(res =>
-            axios
-              .get(
-                `${baseURL}/${deckID}/pile/pile${
-                  piles.filter(n => n === pilePicked)[0]
-                }/draw/bottom/?count=7`
-              )
-              .then(res =>
-                axios
-                  .get(
-                    `${baseURL}/${deckID}/pile/total/add/?cards=${res.data.cards
-                      .map(el => el.code)
-                      .join(",")}`
-                  )
-                  .then(res =>
-                    axios
-                      .get(
-                        `${baseURL}/${deckID}/pile/pile${
-                          piles.filter(n => n !== pilePicked).reverse()[0]
-                        }/draw/?count=7`
-                      )
-                      .then(res =>
-                        axios
-                          .get(
-                            `${baseURL}/${deckID}/pile/total/add/?cards=${res.data.cards
-                              .map(el => el.code)
-                              .join(",")}`
-                          )
-                          .then(res => {
-                            setCardsRemaining(res.data.piles.total.remaining);
-                            setImages({
-                              0: [],
-                              1: [],
-                              2: []
-                            });
-                          })
-                          .catch(err => console.error(err))
-                      )
-                      .catch(err => console.error(err))
-                  )
-                  .catch(err => console.err(err))
-              )
-              .catch(err => console.error(err))
-          )
-          .catch(err => console.error(err))
-      )
-      .catch(err => console.error(err));
+    if (pilePicked !== null) {
+      axios
+        .get(
+          `${baseURL}/${deckID}/pile/pile${
+            piles.filter(n => n !== pilePicked)[0]
+          }/draw/?count=7`
+        )
+        .then(res =>
+          axios
+            .get(
+              `${baseURL}/${deckID}/pile/total/add/?cards=${res.data.cards
+                .map(el => el.code)
+                .join(",")}`
+            )
+            .then(res =>
+              axios
+                .get(
+                  `${baseURL}/${deckID}/pile/pile${
+                    piles.filter(n => n === pilePicked)[0]
+                  }/draw/bottom/?count=7`
+                )
+                .then(res =>
+                  axios
+                    .get(
+                      `${baseURL}/${deckID}/pile/total/add/?cards=${res.data.cards
+                        .map(el => el.code)
+                        .join(",")}`
+                    )
+                    .then(res =>
+                      axios
+                        .get(
+                          `${baseURL}/${deckID}/pile/pile${
+                            piles.filter(n => n !== pilePicked).reverse()[0]
+                          }/draw/?count=7`
+                        )
+                        .then(res =>
+                          axios
+                            .get(
+                              `${baseURL}/${deckID}/pile/total/add/?cards=${res.data.cards
+                                .map(el => el.code)
+                                .join(",")}`
+                            )
+                            .then(res => {
+                              setCardsRemaining(res.data.piles.total.remaining);
+                              setImages({
+                                0: [],
+                                1: [],
+                                2: []
+                              });
+                            })
+                            .catch(err => console.error(err))
+                        )
+                        .catch(err => console.error(err))
+                    )
+                    .catch(err => console.err(err))
+                )
+                .catch(err => console.error(err))
+            )
+            .catch(err => console.error(err))
+        )
+        .catch(err => console.error(err));
+    }
   }, [pilePicked]);
 
   //User has picked a pile 3 times, now we draw 11 cards from

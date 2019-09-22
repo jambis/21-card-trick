@@ -8,8 +8,9 @@ function App() {
   const [cardsArr, setCardsArr] = useState([]); //Array Containing 21 Card codes
   const [imagesArr, setImagesArr] = useState([]); //Array Containing 21 Card images
   const [shortDeck, setShortDeck] = useState(null); //New shuffled deck containing only 21 cards
-  const [cardPicked, setCardPicked] = useState(false); //Has user picked a card
+  const [cardPicked, setCardPicked] = useState(false); //Has user picked a card?
 
+  //Get initial shuffled deck (get initial deck id) of 52 cards
   useEffect(() => {
     axios
       .get("https://deckofcardsapi.com/api/deck/new/shuffle/")
@@ -19,6 +20,7 @@ function App() {
       .catch(err => console.error(err));
   }, []);
 
+  //Draw 21 cards from the initial deck
   useEffect(() => {
     if (newDeck) {
       axios
@@ -35,6 +37,7 @@ function App() {
     }
   }, [newDeck]);
 
+  //Create a new deck (new deck id) with only 21 cards
   useEffect(() => {
     if (cardsArr.length === 21) {
       axios
@@ -48,28 +51,35 @@ function App() {
     }
   }, [cardsArr]);
 
-  if (shortDeck) {
-    axios
-      .get(
-        `https://deckofcardsapi.com/api/deck/${shortDeck.deck_id}/draw/?count=1`
-      )
-      .then(res => {
-        //console.log(res.data);
-        axios
-          .get(
-            `https://deckofcardsapi.com/api/deck/${shortDeck.deck_id}/pile/pile1/add/?cards=${res.data.cards[0].code}`
-          )
-          .then(res => console.log(res.data));
-      })
-      .catch(err => console.error(err));
-  }
+  //Draw all 21 cards from new deck and put them in a pile called total
+  useEffect(() => {
+    if (shortDeck) {
+      axios
+        .get(
+          `https://deckofcardsapi.com/api/deck/${shortDeck.deck_id}/draw/?count=21`
+        )
+        .then(res =>
+          axios
+            .get(
+              `https://deckofcardsapi.com/api/deck/${
+                shortDeck.deck_id
+              }/pile/total/add/?cards=${res.data.cards
+                .map(el => el.code)
+                .join(",")}`
+            )
+            .then(res => console.log(res))
+            .error(err => console.error(err))
+        )
+        .catch(err => console.error(err));
+    }
+  }, [shortDeck]);
 
   return (
     <div className="App">
       {!cardPicked ? (
         <InitialDeck imagesArr={imagesArr} setCardPicked={setCardPicked} />
       ) : (
-        <ThreePiles />
+        <ThreePiles deckID={shortDeck.deck_id} />
       )}
     </div>
   );

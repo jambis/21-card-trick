@@ -16,28 +16,36 @@ const ThreePiles = ({ deckID }) => {
   const corsURL = "https://cors-anywhere.herokuapp.com/";
   const baseURL = `${corsURL}https://deckofcardsapi.com/api/deck`;
 
-  //Draw 3 cards at a time from total pile and each into a
-  //different pile (pile0, pile1, pile2)
-  //Do that until remaining cards in the total pile is 0
+  //Draw 21 cards at a time from total pile and split into
+  //different pile (pile0, pile1, pile2), alternatively
   useEffect(() => {
     if (cardsRemaining > 0 && repNumber > 0) {
       axios
-        .get(`${baseURL}/${deckID}/pile/total/draw/?count=3`)
+        .get(`${baseURL}/${deckID}/pile/total/draw/?count=21`)
         .then(res => {
           setCardsRemaining(res.data.piles.total.remaining);
-          res.data.cards.map((el, index) =>
+
+          for (let i = 0; i < 3; i++) {
+            let cardsToAdd = res.data.cards
+              .filter((el, index) => index % 3 === i)
+              .map(el => el.code)
+              .join(",");
+            let imagesToAdd = res.data.cards
+              .filter((el, index) => index % 3 === i)
+              .map(el => el.image);
+
             axios
               .get(
-                `${baseURL}/${deckID}/pile/pile${index}/add/?cards=${el.code}`
+                `${baseURL}/${deckID}/pile/pile${i}/add/?cards=${cardsToAdd}`
               )
-              .then(res =>
+              .then(res => {
                 setImages(obj => ({
                   ...obj,
-                  [index]: [...obj[index], el.image]
-                }))
-              )
-              .catch(err => console.error(err))
-          );
+                  [i]: imagesToAdd
+                }));
+              })
+              .catch(err => console.error(err));
+          }
         })
         .catch(err => console.error(err));
     }
@@ -119,7 +127,9 @@ const ThreePiles = ({ deckID }) => {
     if (repNumber === 0 && cardsRemaining === 21) {
       axios
         .get(`${baseURL}/${deckID}/pile/total/draw/?count=11`)
-        .then(res => setFinalCard(res.data.cards[0].image))
+        .then(res => {
+          setFinalCard(res.data.cards[0].image);
+        })
         .catch(err => console.error(err));
     }
   }, [repNumber, cardsRemaining]);

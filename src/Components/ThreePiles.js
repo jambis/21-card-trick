@@ -125,6 +125,7 @@ const ThreePiles = ({ deckID }) => {
     }
   }, [repNumber, cardsRemaining]);
 
+  //If finalCard is set then reveal otherwise show the 3 piles
   return (
     <div>
       {finalCard ? (

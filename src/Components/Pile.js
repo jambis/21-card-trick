@@ -1,14 +1,15 @@
 import React from "react";
 
-const Pile = props => {
-  const handleClick = () => {};
+const Pile = ({ images, setRepNumber, pile, setPilePicked }) => {
+  const handleClick = () => {
+    setRepNumber(num => num - 1);
+    setPilePicked(pile.toString());
+  };
 
   return (
     <div onClick={handleClick}>
-      {props.images
-        ? props.images.map((image, index) => (
-            <img key={index} alt="" src={image} />
-          ))
+      {images
+        ? images.map((image, index) => <img key={index} alt="" src={image} />)
         : null}
     </div>
   );

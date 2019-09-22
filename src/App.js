@@ -10,10 +10,13 @@ function App() {
   const [shortDeck, setShortDeck] = useState(null); //New shuffled deck containing only 21 cards
   const [cardPicked, setCardPicked] = useState(false); //Has user picked a card?
 
+  const corsURL = "https://cors-anywhere.herokuapp.com/";
+  const baseURL = `${corsURL}https://deckofcardsapi.com/api/deck`;
+
   //Get initial shuffled deck (get initial deck id) of 52 cards
   useEffect(() => {
     axios
-      .get("https://deckofcardsapi.com/api/deck/new/shuffle/")
+      .get(`${baseURL}/new/shuffle/`)
       .then(res => {
         setNewDeck(res.data);
       })
@@ -24,9 +27,7 @@ function App() {
   useEffect(() => {
     if (newDeck) {
       axios
-        .get(
-          `https://deckofcardsapi.com/api/deck/${newDeck.deck_id}/draw/?count=21`
-        )
+        .get(`${baseURL}/${newDeck.deck_id}/draw/?count=21`)
         .then(res => {
           res.data.cards.forEach(element => {
             setCardsArr(codes => [...codes, element.code]);
@@ -41,11 +42,7 @@ function App() {
   useEffect(() => {
     if (cardsArr.length === 21) {
       axios
-        .get(
-          `https://deckofcardsapi.com/api/deck/new/shuffle/?cards=${cardsArr.join(
-            ","
-          )}`
-        )
+        .get(`${baseURL}/new/shuffle/?cards=${cardsArr.join(",")}`)
         .then(res => setShortDeck(res.data))
         .catch(err => console.error(err));
     }
@@ -55,20 +52,18 @@ function App() {
   useEffect(() => {
     if (shortDeck) {
       axios
-        .get(
-          `https://deckofcardsapi.com/api/deck/${shortDeck.deck_id}/draw/?count=21`
-        )
+        .get(`${baseURL}/${shortDeck.deck_id}/draw/?count=21`)
         .then(res =>
           axios
             .get(
-              `https://deckofcardsapi.com/api/deck/${
+              `${baseURL}/${
                 shortDeck.deck_id
               }/pile/total/add/?cards=${res.data.cards
                 .map(el => el.code)
                 .join(",")}`
             )
-            .then(res => console.log(res))
-            .error(err => console.error(err))
+            .then()
+            .catch(err => console.error(err))
         )
         .catch(err => console.error(err));
     }

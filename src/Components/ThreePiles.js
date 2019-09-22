@@ -125,7 +125,7 @@ const ThreePiles = ({ deckID }) => {
   return (
     <div>
       {finalCard ? (
-        <img src={finalCard} />
+        <img src={finalCard} alt="" />
       ) : (
         <>
           <Pile

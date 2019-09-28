@@ -2,6 +2,12 @@
 
 A react app that demonstrates a card trick.
 
+## How To Play
+
+- Click done once you have memorized 1 of the 21 cards.
+- Pick which of the 3 piles your card is located in. Repeat this a total of 3 times.
+- At the end your card will be displayed.
+
 ## Demo
 
 You can view a live demo over at https://react-21-cardtrick.netlify.com

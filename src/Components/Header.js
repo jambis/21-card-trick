@@ -20,9 +20,6 @@ const Header = () => {
           Source at <a href="https://github.com/jambis/21-card-trick">github</a>
         </p>
       </div>
-      <div>
-        <hr />
-      </div>
     </div>
   );
 };

@@ -46,6 +46,7 @@ p {
 }
 .Header {
   top: 0;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
   margin: 0 auto;
@@ -55,11 +56,6 @@ p {
   display: flex;
   justify-content: space-around;
   align-items: center;
-}
-hr {
-  width: 80%;
-  border-style: ridge;
-  border: 1px solid #b5b5b5;
 }
 
 a {

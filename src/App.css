@@ -58,6 +58,8 @@ p {
 }
 hr {
   width: 80%;
+  border-style: ridge;
+  border: 1px solid #b5b5b5;
 }
 
 a {

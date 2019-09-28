@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Pile from "./Pile";
+import Loader from "./Loader";
 import davidblaine from "../images/parodydavidblaine.gif";
 
 const ThreePiles = ({ deckID }) => {
@@ -143,24 +144,33 @@ const ThreePiles = ({ deckID }) => {
     return (
       <>
         {renderText()}
-        <Pile
-          pile={0}
-          images={images[0]}
-          setRepNumber={setRepNumber}
-          setPilePicked={setPilePicked}
-        />
-        <Pile
-          pile={1}
-          images={images[1]}
-          setRepNumber={setRepNumber}
-          setPilePicked={setPilePicked}
-        />
-        <Pile
-          pile={2}
-          images={images[2]}
-          setRepNumber={setRepNumber}
-          setPilePicked={setPilePicked}
-        />
+        {images[2].length > 0 ? (
+          <>
+            <Pile
+              pile={0}
+              images={images[0]}
+              setRepNumber={setRepNumber}
+              setPilePicked={setPilePicked}
+              setImages={setImages}
+            />
+            <Pile
+              pile={1}
+              images={images[1]}
+              setRepNumber={setRepNumber}
+              setPilePicked={setPilePicked}
+              setImages={setImages}
+            />
+            <Pile
+              pile={2}
+              images={images[2]}
+              setRepNumber={setRepNumber}
+              setPilePicked={setPilePicked}
+              setImages={setImages}
+            />
+          </>
+        ) : (
+          <Loader />
+        )}
       </>
     );
   };
@@ -194,6 +204,9 @@ const ThreePiles = ({ deckID }) => {
         <img src={finalCard} alt="" />
         <br />
         <img src={davidblaine} alt="parody of david blaine" />
+        <p>
+          <a href="/">Try Again?</a>
+        </p>
       </>
     );
   };

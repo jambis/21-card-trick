@@ -3,7 +3,7 @@ import TweenOne from "rc-tween-one";
 import BezierPlugin from "rc-tween-one/lib/plugin/BezierPlugin";
 TweenOne.plugins.push(BezierPlugin);
 
-const Pile = ({ images, setRepNumber, pile, setPilePicked }) => {
+const Pile = ({ images, setRepNumber, pile, setPilePicked, setImages }) => {
   const animation = {
     bezier: {
       type: "thru",
@@ -17,11 +17,16 @@ const Pile = ({ images, setRepNumber, pile, setPilePicked }) => {
   const handleClick = () => {
     setRepNumber(num => num - 1); //Decrease number of repetitions left by 1
     setPilePicked(pile.toString()); //Set which pile was picked
+    setImages({
+      0: [],
+      1: [],
+      2: []
+    });
   };
 
   return (
     <div onClick={handleClick} className="piles">
-      {images
+      {images.length > 0
         ? images.map((image, index) => (
             <TweenOne
               animation={{

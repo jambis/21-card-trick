@@ -35,10 +35,6 @@ npm start
 - create-react-app
 - [Decks of Cards API](http://deckofcardsapi.com/)
 
-## Future Work
-
-- Styling and Animations
-
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details

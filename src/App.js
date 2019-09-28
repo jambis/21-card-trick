@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import InitialDeck from "./Components/InitialDeck";
 import ThreePiles from "./Components/ThreePiles";
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
+import "./App.css";
 
 function App() {
   const [newDeck, setNewDeck] = useState(null); //Initial Deck containing 52 shuffled cards
@@ -21,7 +23,7 @@ function App() {
         setNewDeck(res.data);
       })
       .catch(err => console.error(err));
-  }, []);
+  }, [baseURL]);
 
   //Draw 21 cards from the initial deck
   useEffect(() => {
@@ -36,7 +38,7 @@ function App() {
         })
         .catch(err => console.error(err));
     }
-  }, [newDeck]);
+  }, [newDeck, baseURL]);
 
   //Create a new deck (new deck id) with only 21 cards
   useEffect(() => {
@@ -46,7 +48,7 @@ function App() {
         .then(res => setShortDeck(res.data))
         .catch(err => console.error(err));
     }
-  }, [cardsArr]);
+  }, [cardsArr, baseURL]);
 
   //Draw all 21 cards from new deck and put them in a pile called total
   useEffect(() => {
@@ -67,10 +69,19 @@ function App() {
         )
         .catch(err => console.error(err));
     }
-  }, [shortDeck]);
+  }, [shortDeck, baseURL]);
 
   return (
     <div className="App">
+      <h1>
+        <span role="img" aria-label="joker card">
+          🃏
+        </span>
+        21 Card Trick
+        <span role="img" aria-label="joker card">
+          🃏
+        </span>
+      </h1>
       {!cardPicked ? (
         <InitialDeck imagesArr={imagesArr} setCardPicked={setCardPicked} />
       ) : (

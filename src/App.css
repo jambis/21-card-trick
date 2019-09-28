@@ -1,33 +1,49 @@
-.App {
+html {
+  background: #0f0f0f;
+}
+
+h1 {
+  color: #f0f0f0;
+  font-family: "Notable", sans-serif;
+  font-size: 40px;
   text-align: center;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-  pointer-events: none;
+p {
+  color: #b5b5b5;
+  font-family: "Roboto Mono", monospace;
+  font-size: 30px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.button {
+  background-color: #4169e1;
+  color: #f0f0f0;
+  text-decoration: none;
+  border: none;
+  padding: 18px 34px;
+  font-size: 18px;
+  margin-top: 20px;
+  margin-bottom: 0;
+  border-radius: 4px;
+  cursor: pointer;
 }
 
-.App-link {
-  color: #61dafb;
+.button:hover {
+  background-color: #214cce;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.piles {
+  position: relative;
+  margin: 0 auto;
+  width: 800px;
+  text-align: center;
+  cursor: pointer;
 }
+
+.piles:hover {
+  border: 2px royalblue dashed;
+}
+/*
+font-family: 'Roboto Mono', monospace;
+font-family: 'Notable', sans-serif;
+*/

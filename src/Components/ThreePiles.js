@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Pile from "./Pile";
+import davidblaine from "../images/parodydavidblaine.gif";
 
 const ThreePiles = ({ deckID }) => {
   const [cardsRemaining, setCardsRemaining] = useState(21);
@@ -20,6 +21,7 @@ const ThreePiles = ({ deckID }) => {
   //different pile (pile0, pile1, pile2), alternatively
   useEffect(() => {
     if (cardsRemaining > 0 && repNumber > 0) {
+      console.log("ran 21 card draw");
       axios
         .get(`${baseURL}/${deckID}/pile/total/draw/?count=21`)
         .then(res => {
@@ -49,7 +51,7 @@ const ThreePiles = ({ deckID }) => {
         })
         .catch(err => console.error(err));
     }
-  }, [deckID, cardsRemaining, repNumber]);
+  }, [deckID, cardsRemaining, repNumber, baseURL]);
 
   //Once a pile is picked we draw all the cards from the piles 0-2
   //and put them back into the total pile, while making sure that
@@ -58,6 +60,7 @@ const ThreePiles = ({ deckID }) => {
     const piles = Object.keys(images);
 
     if (pilePicked !== null) {
+      console.log("ran 6 promise callback hell card draw");
       axios
         .get(
           `${baseURL}/${deckID}/pile/pile${
@@ -118,8 +121,10 @@ const ThreePiles = ({ deckID }) => {
             .catch(err => console.error(err))
         )
         .catch(err => console.error(err));
+
+      return setPilePicked(null);
     }
-  }, [pilePicked]);
+  }, [pilePicked, baseURL, deckID]);
 
   //User has picked a pile 3 times, now we draw 11 cards from
   //the total pile and reveal to the user the card
@@ -132,35 +137,71 @@ const ThreePiles = ({ deckID }) => {
         })
         .catch(err => console.error(err));
     }
-  }, [repNumber, cardsRemaining]);
+  }, [repNumber, cardsRemaining, baseURL, deckID]);
+
+  const renderPiles = () => {
+    return (
+      <>
+        {renderText()}
+        <Pile
+          pile={0}
+          images={images[0]}
+          setRepNumber={setRepNumber}
+          setPilePicked={setPilePicked}
+        />
+        <Pile
+          pile={1}
+          images={images[1]}
+          setRepNumber={setRepNumber}
+          setPilePicked={setPilePicked}
+        />
+        <Pile
+          pile={2}
+          images={images[2]}
+          setRepNumber={setRepNumber}
+          setPilePicked={setPilePicked}
+        />
+      </>
+    );
+  };
+
+  const renderText = () => {
+    return (
+      <>
+        {repNumber === 3 ? (
+          <p>
+            Let's start building a connection to your card...
+            <br />
+            which pile is your card in?{" "}
+          </p>
+        ) : repNumber === 2 ? (
+          <p>
+            I'm starting to build a better connection to your card...
+            <br />
+            which pile is your card in?
+          </p>
+        ) : (
+          <p>OK one last time tell me which pile is your card in?</p>
+        )}
+      </>
+    );
+  };
+
+  const renderFinalCard = () => {
+    return (
+      <>
+        <p>Is this your card?</p>
+        <img src={finalCard} alt="" />
+        <br />
+        <img src={davidblaine} alt="parody of david blaine" />
+      </>
+    );
+  };
 
   //If finalCard is set then reveal otherwise show the 3 piles
   return (
-    <div>
-      {finalCard ? (
-        <img src={finalCard} alt="" />
-      ) : (
-        <>
-          <Pile
-            pile={0}
-            images={images[0]}
-            setRepNumber={setRepNumber}
-            setPilePicked={setPilePicked}
-          />
-          <Pile
-            pile={1}
-            images={images[1]}
-            setRepNumber={setRepNumber}
-            setPilePicked={setPilePicked}
-          />
-          <Pile
-            pile={2}
-            images={images[2]}
-            setRepNumber={setRepNumber}
-            setPilePicked={setPilePicked}
-          />
-        </>
-      )}
+    <div style={{ textAlign: "center" }}>
+      {finalCard ? renderFinalCard() : renderPiles()}
     </div>
   );
 };

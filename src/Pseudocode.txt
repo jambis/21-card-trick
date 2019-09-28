@@ -1,3 +1,8 @@
+TODO:
+Look into react-gasp to get animations going for the cards.
+Design layout, content, instructions, footer.
+
+--------------------------------------------------------------------------------
 sample object 
 {
     "success": true,

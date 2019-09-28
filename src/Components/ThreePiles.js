@@ -22,7 +22,6 @@ const ThreePiles = ({ deckID }) => {
   //different pile (pile0, pile1, pile2), alternatively
   useEffect(() => {
     if (cardsRemaining > 0 && repNumber > 0) {
-      console.log("ran 21 card draw");
       axios
         .get(`${baseURL}/${deckID}/pile/total/draw/?count=21`)
         .then(res => {
@@ -61,7 +60,6 @@ const ThreePiles = ({ deckID }) => {
     const piles = Object.keys(images);
 
     if (pilePicked !== null) {
-      console.log("ran 6 promise callback hell card draw");
       axios
         .get(
           `${baseURL}/${deckID}/pile/pile${

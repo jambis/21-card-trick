@@ -40,9 +40,6 @@ p {
   cursor: pointer;
 }
 
-.piles:hover {
-  border: 2px royalblue dashed;
-}
 /*
 font-family: 'Roboto Mono', monospace;
 font-family: 'Notable', sans-serif;

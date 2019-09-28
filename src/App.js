@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import InitialDeck from "./Components/InitialDeck";
 import ThreePiles from "./Components/ThreePiles";
+import Header from "./Components/Header";
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import "./App.css";
 
@@ -73,15 +74,8 @@ function App() {
 
   return (
     <div className="App">
-      <h1>
-        <span role="img" aria-label="joker card">
-          🃏
-        </span>
-        21 Card Trick
-        <span role="img" aria-label="joker card">
-          🃏
-        </span>
-      </h1>
+      <Header />
+
       {!cardPicked ? (
         <InitialDeck imagesArr={imagesArr} setCardPicked={setCardPicked} />
       ) : (

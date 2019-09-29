@@ -13,6 +13,8 @@ A react app that demonstrates a card trick.
 You can view a live demo over at https://react-21-cardtrick.netlify.com
 or https://21-card-trick.jambis.now.sh
 
+![](react21cardtrick-demo.gif)
+
 ## Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.

@@ -12,7 +12,7 @@ const InitialDeck = ({ imagesArr, setCardPicked }) => {
       vars: [{ x: 800, y: 0 }]
     },
     duration: 1000,
-    ease: "linear"
+    ease: "easeOutSine"
   };
 
   const handleClick = () => {
@@ -26,31 +26,32 @@ const InitialDeck = ({ imagesArr, setCardPicked }) => {
         <button onClick={handleClick} className="button">
           Ok I'm ready
         </button>
-        {imagesArr.map((image, index) => (
-          <TweenOne
-            animation={{
-              ...animation,
-              bezier: {
-                ...animation.bezier,
-                vars: [{ x: (600 / 20) * index, y: 0 }]
-              },
-              duration: (1500 / 21) * index
-            }}
-          >
-            <img
-              className={`image${index}`}
-              key={index}
-              src={`${image}`}
-              alt=""
-              style={{
-                position: "absolute",
-                left: "0",
-                top: "70px"
+        <div style={{ width: "0" }}>
+          {imagesArr.map((image, index) => (
+            <TweenOne
+              animation={{
+                ...animation,
+                bezier: {
+                  ...animation.bezier,
+                  vars: [{ x: (600 / 20) * index, y: 0 }]
+                },
+                duration: (1500 / 21) * index
               }}
-            />
-          </TweenOne>
-        ))}
-        ;
+            >
+              <img
+                className={`image${index}`}
+                key={index}
+                src={`${image}`}
+                alt=""
+                style={{
+                  position: "absolute",
+                  left: "0",
+                  top: "70px"
+                }}
+              />
+            </TweenOne>
+          ))}
+        </div>
       </>
     );
   };

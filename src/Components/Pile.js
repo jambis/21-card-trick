@@ -11,7 +11,7 @@ const Pile = ({ images, setRepNumber, pile, setPilePicked, setImages }) => {
       vars: [{ x: 800, y: 0 }]
     },
     duration: 1000,
-    ease: "linear"
+    ease: "easeInSine"
   };
 
   const handleClick = () => {

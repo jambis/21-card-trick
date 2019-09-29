@@ -2,6 +2,10 @@ html {
   background: #0f0f0f;
 }
 
+* {
+  border: 1 red solid;
+}
+
 h1 {
   color: #f0f0f0;
   font-family: "Notable", sans-serif;
@@ -67,6 +71,9 @@ a:hover {
   text-decoration: underline;
 }
 
+.aTitle:hover {
+  text-decoration: none;
+}
 /*
 font-family: 'Roboto Mono', monospace;
 font-family: 'Notable', sans-serif;

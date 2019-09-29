@@ -43,6 +43,19 @@ p {
   text-align: center;
   cursor: pointer;
 }
+
+.pile0:hover {
+  transform: scale(1.2) translateX(5%);
+}
+
+.pile1:hover {
+  transform: scale(1.2) translateX(0%);
+}
+
+.pile2:hover {
+  transform: scale(1.2) translateX(-5%);
+}
+
 .pHeader {
   color: #b5b5b5;
   font-family: "Roboto Mono", monospace;

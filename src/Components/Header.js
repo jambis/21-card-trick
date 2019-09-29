@@ -19,7 +19,8 @@ const Header = () => {
           </h1>
         </a>
         <p className="pHeader">
-          Source at <a href="https://github.com/jambis/21-card-trick">github</a>
+          Source at:{" "}
+          <a href="https://github.com/jambis/21-card-trick">github</a>
         </p>
       </div>
     </div>

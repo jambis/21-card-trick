@@ -25,7 +25,7 @@ const Pile = ({ images, setRepNumber, pile, setPilePicked, setImages }) => {
   };
 
   return (
-    <div onClick={handleClick} className="piles">
+    <div onClick={handleClick} className={`pile${pile} piles`}>
       {images.length > 0
         ? images.map((image, index) => (
             <TweenOne

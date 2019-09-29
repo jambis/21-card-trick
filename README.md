@@ -11,6 +11,7 @@ A react app that demonstrates a card trick.
 ## Demo
 
 You can view a live demo over at https://react-21-cardtrick.netlify.com
+or https://21-card-trick.jambis.now.sh
 
 ## Getting Started
 

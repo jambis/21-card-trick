@@ -1,6 +1,13 @@
-# React 21 Card Trick
+<h1 align="center">
+    React 21 Card Trick
+</h1>
+
 
 A react app that demonstrates a card trick.
+
+## Motivation
+
+This project was built to learn how to use react hooks and doing nested api calls. This project is no longer being worked on.
 
 ## How To Play
 
